@@ -2,7 +2,7 @@
 // CPSC 335 - Algorithm Engineering, Project 1
 // Algorithm 2: Connecting Pairs of Persons
 //
-// Group members: [add names here]
+// Group members: Chase Hales, Chris Reyes
 //
 // Description:
 //   n couples sit in 2n seats in a row. row[i] is the ID of the

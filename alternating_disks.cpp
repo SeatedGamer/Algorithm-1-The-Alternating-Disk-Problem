@@ -3,7 +3,7 @@
 // CPSC 335 - Algorithm Engineering, Project 1
 // Algorithm 1: The Alternating Disk Problem
 //
-// Group members: [add names here]
+// Group members: Chase Hales, Chris Reyes
 //
 // Description:
 //   Starts with 2n disks alternating light and dark (starting
