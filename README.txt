@@ -13,8 +13,8 @@ _[e.g., C++]_
 
 ## Algorithm 1: Alternating Disks
 
-**Compile:** `[command]`
-**Run:** `[command]`
+**Compile:** `g++ -std=c++17 -o alternating_disks alternating_disks.cpp`
+**Run:** `./alternating_disks`
 
 **Sample:**
 ```
@@ -26,8 +26,8 @@ Output: D D D D L L L L, swaps = 10
 
 ## Algorithm 2: Connecting Pairs
 
-**Compile:** `[command]`
-**Run:** `[command]`
+**Compile:** `g++ -std=c++17 -o couples couples.cpp`
+**Run:** `./couples`
 
 **Sample:**
 ```

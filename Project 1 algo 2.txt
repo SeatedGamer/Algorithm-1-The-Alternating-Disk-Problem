@@ -1,3 +1,10 @@
+// ============================================================
+// CPSC 335 - Algorithm Engineering, Project 1
+// Algorithm 2: Connecting Pairs of Persons Pseudocode
+//
+// Group members: Chase Hales, Chris Reyes
+// ============================================================
+
 ALGORITHM MinSwapsCouples(row)
   // Input: array row of length 2n, where row[i] is the ID of the
   //        person in seat i; couples are (0,1), (2,3), ..., (2n-2, 2n-1)
