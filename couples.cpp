@@ -1,47 +1,35 @@
-// ============================================================
-// CPSC 335 - Algorithm Engineering, Project 1
-// Algorithm 2: Connecting Pairs of Persons
-//
-// Group members: Chase Hales, Chris Reyes
-//
-// Description:
-//   n couples sit in 2n seats in a row. row[i] is the ID of the
-//   person in seat i. Couples are (0,1), (2,3), ..., (2n-2, 2n-1).
-//   Finds the minimum number of swaps (any two people trade seats)
-//   so that every couple sits side by side.
-//
-//   Uses a greedy approach: check seats in pairs, and if a person's
-//   partner is not next to them, swap the partner into that seat.
-//   A lookup table (pos) stores each person's seat so partners are
-//   found in constant time.
-//
-// Compile: g++ -std=c++17 -o couples couples.cpp
-// Run:     ./couples
-// ============================================================
+/*
+CPSC 335 - Algorithm Engineering, Project 1
+Algorithm 2: Connecting Pairs of Persons
+
+Group members: Chase Hales, Chris Reyes, Alexavier Lualhati
+
+Description:
+    Given a row of ints, where each int represents a persons ID present in the ith seat,
+    we designed an algorithm using a greedy approach to look over the inputted row and check 
+    whether each person is seated next to their partner and if not, will have their seats 
+    swapped with another person so that all people in the row are sitting next to their partner
+
+Compile: g++ -std=c++17 -o couples couples.cpp
+Run:     ./couples
+*/
 
 #include <iostream>
 #include <vector>
 #include <string>
-#include <utility>   // for std::swap
+#include <utility>
 
-// ------------------------------------------------------------
-// SETTINGS - change these to test different cases
-// ------------------------------------------------------------
-
-// Each inner list is one test row. Add, remove, or edit rows freely.
-// Rules: even length, unique IDs from 0 to (length - 1).
+// Inpput of rows to be tested
 const std::vector<std::vector<int>> TEST_ROWS = {
-    {0, 2, 1, 3},             // Sample 1 from the handout (expected 1)
-    {3, 2, 0, 1},             // Sample 2 from the handout (expected 0)
-    {0, 3, 2, 5, 4, 1},       // extra test (expected 2)
-    {5, 4, 2, 6, 3, 1, 0, 7}  // extra test (expected 2)
+    {0, 2, 1, 3},
+    {3, 2, 0, 1},
+    {0, 3, 2, 5, 4, 1},
+    {5, 4, 2, 6, 3, 1, 0, 7}
 };
 
-const bool SHOW_EACH_SWAP = true;  // true = print the row after every swap
+const bool SHOW_EACH_SWAP = true;  // Prints the row after every swap
 
-// ------------------------------------------------------------
-// Prints a row of IDs with a label in front, like: [0, 2, 1, 3]
-// ------------------------------------------------------------
+// Prints a row of IDs with each ID being the person sitting in the ith seat
 void printRow(const std::string& label, const std::vector<int>& row) {
     std::cout << label << "[";
     for (size_t i = 0; i < row.size(); i++) {
@@ -53,10 +41,7 @@ void printRow(const std::string& label, const std::vector<int>& row) {
     std::cout << "]\n";
 }
 
-// ------------------------------------------------------------
-// Returns the partner of a person.
-// Even IDs pair with the next ID (0 -> 1), odd with the previous (1 -> 0).
-// ------------------------------------------------------------
+// Returns the ID of a persons partner
 int getPartner(int person) {
     if (person % 2 == 0) {
         return person + 1;
@@ -65,14 +50,11 @@ int getPartner(int person) {
     }
 }
 
-// ------------------------------------------------------------
-// Returns the minimum number of swaps so every couple sits together.
-// The row is copied so the original test row is not changed.
-// ------------------------------------------------------------
+// Swaps each person counting the number of swaps done so that all couples are sitting together with their partner
 int minSwapsCouples(std::vector<int> row) {
-    int size = row.size();   // total number of seats (2n)
+    int size = row.size();   // number of seats (2n)
 
-    // Lookup table: pos[person] = seat that person is sitting in
+    // Persons seat, position in the row
     std::vector<int> pos(size);
     for (int i = 0; i < size; i++) {
         pos[row[i]] = i;
@@ -80,15 +62,15 @@ int minSwapsCouples(std::vector<int> row) {
 
     int swaps = 0;
 
-    // Check seats in pairs: (0,1), (2,3), (4,5), ...
+    // Checks seats in pairs
     for (int i = 0; i < size - 1; i += 2) {
         int first   = row[i];
         int partner = getPartner(first);
 
-        // If the partner is not in the next seat, swap them into it
+        // Swaps persons seat next to partner if not seated together
         if (row[i + 1] != partner) {
-            int partnerSeat = pos[partner];   // where the partner is now
-            int displaced   = row[i + 1];     // person being moved out
+            int partnerSeat = pos[partner];   // partners position
+            int displaced   = row[i + 1];     // person swapping seats
 
             std::swap(row[i + 1], row[partnerSeat]);
 
@@ -107,9 +89,11 @@ int minSwapsCouples(std::vector<int> row) {
     return swaps;
 }
 
-// ------------------------------------------------------------
-// Main: runs every test row and prints the results.
-// ------------------------------------------------------------
+/*Executes the program
+    Given an input of rows assuming each integer is an ID of a person,
+    the row is print with printRow(), and then minSwapsCouples() goes through each row 
+    sorting every persons seat using getPartner() to match their partners so that the row 
+    consists of every couple sitting next to their partner */
 int main() {
     for (size_t t = 0; t < TEST_ROWS.size(); t++) {
         std::cout << "Test " << t + 1 << "\n";
