@@ -4,6 +4,7 @@ CPSC 335 – Project 1
  Chase Hales , chales@csu.fullerton.edu
  Chris Reyes , car814435@csu.fullerton.edu
  Alexavier Lualhati, alualhat1@csu.fullerton.edu
+ Darren Ngo, dngo18@csu.fullerton.edu
 - _[Name]_ – _[email]_
 
 ## Language

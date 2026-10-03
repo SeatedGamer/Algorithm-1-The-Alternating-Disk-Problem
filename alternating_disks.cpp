@@ -2,7 +2,7 @@
 CPSC 335 - Algorithm Engineering, Project 1
 Algorithm 1: The Alternating Disk Problem
 
-Group members: Chase Hales, Chris Reyes, Alexavier Lualhati
+Group members: Chase Hales, Chris Reyes, Alexavier Lualhati, Darren Ngo
 
 Description:
     Using a sorting algorithm, this program will rearrange a row of 2n disks,

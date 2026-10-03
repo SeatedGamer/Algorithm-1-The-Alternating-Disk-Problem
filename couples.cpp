@@ -2,7 +2,7 @@
 CPSC 335 - Algorithm Engineering, Project 1
 Algorithm 2: Connecting Pairs of Persons
 
-Group members: Chase Hales, Chris Reyes, Alexavier Lualhati
+Group members: Chase Hales, Chris Reyes, Alexavier Lualhati, Darren Ngo
 
 Description:
     Given a row of ints, where each int represents a persons ID present in the ith seat,

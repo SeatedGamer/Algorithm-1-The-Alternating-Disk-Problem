@@ -2,7 +2,7 @@
 // CPSC 335 - Algorithm Engineering, Project 1
 // Algorithm 2: Connecting Pairs of Persons Pseudocode
 //
-// Group members: Chase Hales, Chris Reyes, Alexavier Lualhati
+// Group members: Chase Hales, Chris Reyes, Alexavier Lualhati, Darren Ngo
 // ============================================================
 
 ALGORITHM MinSwapsCouples(row)
