@@ -1,4 +1,4 @@
-CPSC 335 – Project 1
+## CPSC 335 – Project 1 ##
 
 **Group 7 Members:**
 ```
@@ -8,8 +8,6 @@ CPSC 335 – Project 1
  Darren Ngo, dngo18@csu.fullerton.edu
 ```
 
----
-
 ## Algorithm 1: Alternating Disks
 
 **Sample:**
@@ -18,8 +16,6 @@ Input:  n = 4, D L D L D L D L
 Output: D D D D L L L L, swaps = 6
 ```
 
----
-
 ## Algorithm 2: Connecting Pairs
 
 **Sample:**
@@ -27,8 +23,6 @@ Output: D D D D L L L L, swaps = 6
 Input:  [0, 2, 1, 3]  ->  Output: 1
 Input:  [3, 2, 0, 1]  ->  Output: 0
 ```
-
----
 
 ## Assumptions
 - Algorithm 1: input starts with dark and alternates.
