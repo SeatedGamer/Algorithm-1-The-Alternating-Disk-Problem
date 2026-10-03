@@ -1,7 +1,7 @@
 CPSC 335 – Project 1
 
+***Group 7 Members:***
 ```
-7 Group Members
  Chase Hales, chales@csu.fullerton.edu
  Chris Reyes, car814435@csu.fullerton.edu
  Alexavier Lualhati, alualhat1@csu.fullerton.edu
