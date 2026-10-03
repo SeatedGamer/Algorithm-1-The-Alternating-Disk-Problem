@@ -1,13 +1,15 @@
-// ============================================================
-// CPSC 335 - Algorithm Engineering, Project 1
-// Algorithm 2: Connecting Pairs of Persons Pseudocode
-//
-// Group members: Chase Hales, Chris Reyes, Alexavier Lualhati, Darren Ngo
-// ============================================================
+ALGORITHM get_partner(person)
+  // Input: a person's ID
+  // Output: the ID of that person's partner
+  //         (even IDs pair with the next ID, odd IDs with the previous)
 
-ALGORITHM MinSwapsCouples(row)
+  if person is even then return person + 1
+  else return person − 1
+
+
+ALGORITHM min_swaps(row)
   // Input: array row of length 2n, where row[i] is the ID of the
-  //        person in seat i; couples are (0,1), (2,3), ..., (2n-2, 2n-1)
+  //        person in seat i; couples are (0,1), (2,3), ..., (2n−2, 2n−1)
   // Output: minimum number of swaps so every couple sits side by side
 
   size ← length of row
@@ -22,67 +24,6 @@ ALGORITHM MinSwapsCouples(row)
   // Check seats in pairs: (0,1), (2,3), (4,5), ...
   for i ← 0 to size − 2 step 2 do
       first ← row[i]
+      partner ← get_partner(first)
 
-      // Find first's partner: even IDs pair with the next ID, odd with the previous
-      if first is even then partner ← first + 1
-      else partner ← first − 1
-
-      // If the partner isn't in the next seat, swap them into it
-      if row[i + 1] ≠ partner then
-          partnerSeat ← pos[partner]
-          displaced ← row[i + 1]
-
-          swap row[i + 1] and row[partnerSeat]
-
-          // Update the lookup table for the two people who moved
-          pos[partner] ← i + 1
-          pos[displaced] ← partnerSeat
-
-          swaps ← swaps + 1
-
-  return swaps
-
-
-## Algorithm 2: Analysis and Big O
-
-Let the row have 2n seats (n couples).
-
-### Step 1: Building the lookup table
-The first loop visits every seat once and does one assignment per seat.
-
-    Operations = 2n  →  Θ(n)
-
-### Step 2: Checking each pair of seats
-The main loop runs once for every pair of seats (0,1), (2,3), ..., so it runs
-n times. Each iteration does a constant amount of work: find the partner,
-compare, and possibly one swap plus two table updates. The lookup table means
-finding a partner's seat takes constant time instead of a search.
-
-Basic operation: the comparison row[i + 1] ≠ partner, done once per iteration.
-
-    C(n) = n  →  Θ(n)
-
-### Number of swaps
-- Best case: every couple is already together, so 0 swaps.
-- Worst case: n − 1 swaps. Once the first n − 1 couples are fixed, the last two
-  people left must be the last couple, so the final pair never needs a swap.
-
-### Why greedy gives the minimum
-Think of the misplaced couples as forming cycles: pair A holds someone from
-pair B, pair B holds someone from pair C, and so on back to A. A cycle
-involving k seat pairs needs exactly k − 1 swaps to fix, and no swap can fix
-more than one extra couple at a time. Each greedy swap fixes one couple and
-shrinks its cycle by one, so the greedy algorithm uses exactly the minimum:
-
-    minimum swaps = n − (number of cycles)
-
-### Efficiency Class
-Total work = 2n (building the table) + n (checking pairs) = 3n.
-
-    Time complexity: Θ(n)
-    Space complexity: O(n) for the lookup table
-
-### Note on the lookup table
-Without the pos table, each missing partner would have to be found by searching
-the row, which takes up to 2n steps each time. That would make the algorithm
-Θ(n²). The table trades O(n) extra memory for a faster running time.
+      // If the partner isn't in the next
