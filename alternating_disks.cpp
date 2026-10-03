@@ -3,9 +3,6 @@ CPSC 335 - Algorithm Engineering, Project 1
 Algorithm 1: The Alternating Disk Problem
 
 Group members: Chase Hales, Chris Reyes, Alexavier Lualhati, Darren Ngo
-
-Compile: g++ -std=c++17 -o alternating_disks alternating_disks.cpp
-Run: ./alternating_disks
 */
 
 #include <iostream>
