@@ -1,102 +1,43 @@
-// ============================================================
-// CPSC 335 - Algorithm Engineering, Project 1
-// Algorithm 1: The Alternating Disk Problem Pseudocode
-//
-// Group members: Chase Hales, Chris Reyes, Alexavier Lualhati, Darren Ngo
-// ============================================================
-
-ALGORITHM AlternatingDisks(n)
+ALGORITHM make_alternating_disks(n)
   // Input: positive integer n
-  // Output: list of 2n disks (dark first, then light), and swap count m
+  // Output: list of 2n disks alternating dark, light, starting with dark
 
-  disks ← empty list of size 2n
+  disks ← list of size 2n
   for i ← 0 to 2n − 1 do
-      if i is even then disks[i] ← LIGHT
-      else disks[i] ← DARK
+      if i is even then disks[i] ← DARK
+      else disks[i] ← LIGHT
+  return disks
 
-  m ← 0
+
+ALGORITHM sort_disks(disks)
+  // Input: list of 2n alternating disks
+  // Output: disks rearranged so all dark disks are on the left and all
+  //         light disks are on the right; returns the number of passes
+
+  size ← length of disks
+  swaps ← 0
+  passes ← 0
   swapped ← true
 
   while swapped do
       swapped ← false
 
       // Left-to-right pass
-      for i ← 0 to 2n − 2 do
+      for i ← 0 to size − 2 do
           if disks[i] = LIGHT and disks[i + 1] = DARK then
               swap disks[i] and disks[i + 1]
-              m ← m + 1
+              swaps ← swaps + 1
               swapped ← true
+      passes ← passes + 1
+      print "Pass", passes, "(L->R):", disks
 
       // Right-to-left pass
-      for i ← 2n − 2 down to 0 do
+      for i ← size − 2 down to 0 do
           if disks[i] = LIGHT and disks[i + 1] = DARK then
               swap disks[i] and disks[i + 1]
-              m ← m + 1
+              swaps ← swaps + 1
               swapped ← true
+      passes ← passes + 1
+      print "Pass", passes, "(R->L):", disks
 
-  return disks, m
-
-## Algorithm 1: Analysis and Big O
-
-### Number of Swaps (m)
-Each swap exchanges an adjacent light–dark pair, which moves exactly one light disk
-past exactly one dark disk. So the total number of swaps equals the number of
-(light, dark) pairs where the light disk starts to the left of the dark disk.
-
-In the starting arrangement L D L D ... L D, the light disks are at positions
-0, 2, 4, ..., 2n − 2. The light disk at position 2k has (n − k) dark disks to its right.
-
-    m = Σ (n − k) for k = 0 to n − 1
-      = n + (n − 1) + ... + 2 + 1
-      = n(n + 1) / 2
-
-Example: n = 4 gives m = 4(5)/2 = 10 swaps.
-
-### Number of Comparisons (basic operation)
-Each pass (left-to-right or right-to-left) compares every adjacent pair once,
-so each pass makes (2n − 1) comparisons.
-
-Tracing the algorithm shows that the passes make n, n − 1, ..., 2, 1 swaps, so
-there are n passes that do work. Because the loop only stops after a round trip
-with no swaps, there is up to one extra round trip at the end, for at most
-n + 3 passes in total.
-
-    C(n) ≤ (2n − 1)(n + 3)
-         = 2n² + 5n − 3
-
-Example: n = 4 takes 6 passes, so C(4) = 7 × 6 = 42 comparisons.
-
-### Efficiency Class
-Both the number of swaps, n(n + 1)/2, and the number of comparisons,
-at most 2n² + 5n − 3, grow quadratically with n.
-
-    Time complexity: Θ(n²)
-    Space complexity: O(n) for the list of 2n disks
-
-## Algorithm 1: Can It Be Improved?
-
-Yes, in some ways, but not in its number of swaps.
-
-### Swaps cannot be reduced
-Every adjacent swap moves one light disk past one dark disk, and every light disk
-must pass every dark disk that starts to its right. So any algorithm limited to
-swapping neighbors needs at least n(n + 1)/2 swaps. This algorithm already uses
-exactly that many, so it is optimal in swaps.
-
-### Comparisons can be reduced
-1. **Shrink the search range after each pass.** Each left-to-right pass carries one
-   light disk to its final spot at the right end, and each right-to-left pass carries
-   one dark disk to its final spot at the left end. Those positions never need to be
-   checked again, so the next pass can stop one position earlier on that side.
-   This cuts the comparisons roughly in half, although the efficiency class is still Θ(n²).
-
-2. **Stop early.** The algorithm ends as soon as a full round trip makes no swaps,
-   instead of always running a fixed number of passes. (Our pseudocode already
-   does this.)
-
-### Computing the answer directly
-If only the final arrangement and the swap count are needed, the moves don't have to
-be simulated at all. The output is always n dark disks followed by n light disks,
-which can be built in O(n) time, and the swap count is always m = n(n + 1)/2, which
-can be computed in O(1) time. This does not perform the swaps, but it gives the
-same result much faster.
+  return passes
