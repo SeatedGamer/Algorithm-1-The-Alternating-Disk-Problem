@@ -18,19 +18,18 @@ Run:     ./alternating_disks
 #include <string>
 #include <utility>
 
-const int  N              = 4;     // number of each colored disk
-const char LIGHT          = 'L';   // Light disk
-const char DARK           = 'D';   // Dark disk
-const bool SHOW_EACH_PASS = true;  // prints the row after every pass
+const int  num_disks      = 4;     // number of each colored disk
+const char light          = 'L';   // Light disk
+const char dark           = 'D';   // Dark disk
 
 // Creates the row of alternating disks
 std::vector<char> makeAlternatingDisks(int n) {
     std::vector<char> disks(2 * n);
     for (int i = 0; i < 2 * n; i++) {
         if (i % 2 == 0) {
-            disks[i] = LIGHT;
+            disks[i] = dark;
         } else {
-            disks[i] = DARK;
+            disks[i] = light;
         }
     }
     return disks;
@@ -49,8 +48,8 @@ void printDisks(const std::string& label, const std::vector<char>& disks) {
 all light disks are on the right */
 int sortDisks(std::vector<char>& disks) {
     int size    = disks.size();  // number of disks (2n)
-    int m       = 0;             // swap counter
-    int pass    = 0;             // pass counter
+    int swaps       = 0;             // swap counter
+    int passes    = 0;             // pass counter
     bool swapped = true;         // the disks in the row swapped places
 
     // Keep passing through the row swapping disks until all disks are sorted on one side and no more swaps are done
@@ -60,51 +59,48 @@ int sortDisks(std::vector<char>& disks) {
         // Left-to-right pass
         for (int i = 0; i < size - 1; i++) {
             // A light disk before a dark disk is out of order
-            if (disks[i] == LIGHT && disks[i + 1] == DARK) {
+            if (disks[i] == light && disks[i + 1] == dark) {
                 std::swap(disks[i], disks[i + 1]);
-                m++;
+                swaps++;
                 swapped = true;
             }
         }
-        pass++;
-        if (SHOW_EACH_PASS) {
-            printDisks("Pass " + std::to_string(pass) + " (L->R): ", disks);
-        }
+        passes++;
+        printDisks("Pass " + std::to_string(passes) + " (L->R): ", disks);
 
         // Right-to-left pass
         for (int i = size - 2; i >= 0; i--) {
-            if (disks[i] == LIGHT && disks[i + 1] == DARK) {
+            if (disks[i] == light && disks[i + 1] == dark) {
                 std::swap(disks[i], disks[i + 1]);
-                m++;
+                swaps++;
                 swapped = true;
             }
         }
-        pass++;
-        if (SHOW_EACH_PASS) {
-            printDisks("Pass " + std::to_string(pass) + " (R->L): ", disks);
-        }
+        passes++;
+        printDisks("Pass " + std::to_string(passes) + " (R->L): ", disks);
     }
 
-    return m;
+    return passes;
 }
 
 /* Executes the program
     Creates the disks via makeAlternateDisks(), prints them with printDisks(),
     then sorts them using sortDisks() until finally printing out a sorted row of the 
     created disks with printDisk() */
-int main() {
-    std::vector<char> disks = makeAlternatingDisks(N);
 
-    std::cout << "n = " << N << "\n";
+int main() {
+    std::vector<char> disks = makeAlternatingDisks(num_disks);
+
+    std::cout << "n = " << num_disks << "\n";
     printDisks("Input:  ", disks);
     std::cout << '\n';
 
-    int m = sortDisks(disks);
+    int sorted_disks = sortDisks(disks);
 
     std::cout << '\n';
     printDisks("Output: ", disks);
-    std::cout << "Number of swaps (m): " << m << '\n';
-    std::cout << "Expected n(n+1)/2:   " << N * (N + 1) / 2 << '\n';
+    std::cout << "Number of swaps (m): " << sorted_disks << '\n';
+    std::cout << "Expected n(n+1)/2:   " << num_disks * (num_disks + 1) / 2 << '\n';
 
     return 0;
 }
