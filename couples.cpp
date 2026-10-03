@@ -20,14 +20,14 @@ Run:     ./couples
 #include <utility>
 
 // Inpput of rows to be tested
-const std::vector<std::vector<int>> TEST_ROWS = {
+const std::vector<std::vector<int>> test_data = {
     {0, 2, 1, 3},
     {3, 2, 0, 1},
     {0, 3, 2, 5, 4, 1},
     {5, 4, 2, 6, 3, 1, 0, 7}
 };
 
-const bool SHOW_EACH_SWAP = true;  // Prints the row after every swap
+const bool SHOW_EACH_SWAP = true; // Prints the row after every swap
 
 // Prints a row of IDs with each ID being the person sitting in the ith seat
 void printRow(const std::string& label, const std::vector<int>& row) {
@@ -95,11 +95,11 @@ int minSwapsCouples(std::vector<int> row) {
     sorting every persons seat using getPartner() to match their partners so that the row 
     consists of every couple sitting next to their partner */
 int main() {
-    for (size_t t = 0; t < TEST_ROWS.size(); t++) {
+    for (size_t t = 0; t < test_data.size(); t++) {
         std::cout << "Test " << t + 1 << "\n";
-        printRow("  Input:  ", TEST_ROWS[t]);
+        printRow("  Input:  ", test_data[t]);
 
-        int result = minSwapsCouples(TEST_ROWS[t]);
+        int result = minSwapsCouples(test_data[t]);
 
         std::cout << "  Output: " << result << "\n\n";
     }
